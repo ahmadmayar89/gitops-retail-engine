@@ -1,0 +1,15 @@
+CREATE TABLE IF NOT EXISTS products (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    price DECIMAL(10,2) NOT NULL CHECK (price >= 0),
+    description TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+INSERT INTO products (name, price, description) VALUES
+    ('MacBook Pro', 1299.99, '16-inch, M2 Max chip, 32GB memory, 1TB SSD'),
+    ('iPhone 15 Pro', 999.99, '6.7-inch display, A17 Pro chip, 256GB storage'),
+    ('AirPods Pro', 249.99, 'Active noise cancellation, spatial audio'),
+    ('iPad Air', 599.99, '10.9-inch Liquid Retina display, M1 chip'),
+    ('Apple Watch Ultra', 799.99, '49mm titanium case, GPS + Cellular')
+ON CONFLICT (id) DO NOTHING;

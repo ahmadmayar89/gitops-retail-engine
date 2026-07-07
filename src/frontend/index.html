@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Retail Engine</title>
+  <style>
+    body { font-family: Arial; margin: 40px; background: #f5f5f5; }
+    h1 { color: #667eea; }
+    .product { background: white; padding: 15px; margin: 10px 0; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    .price { color: #667eea; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>🛒 Retail Engine</h1>
+  <p>Welcome to the Retail Engine!</p>
+  <div id="products">Loading products...</div>
+  <script>
+    fetch('/api/products')
+      .then(r => r.json())
+      .then(data => {
+        document.getElementById('products').innerHTML = 
+          '<h2>Products</h2>' + 
+          data.map(p => `<div class="product"><strong>${p.name}</strong> - <span class="price">$${p.price}</span><br><small>${p.description}</small></div>`).join('');
+      })
+      .catch(e => {
+        document.getElementById('products').innerHTML = '<p>Error loading products</p>';
+        console.error(e);
+      });
+  </script>
+</body>
+</html>
